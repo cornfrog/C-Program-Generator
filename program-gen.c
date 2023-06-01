@@ -7,13 +7,16 @@ void getDirName();
 void createDir();
 void createFile();
 void createMakefile();
+void createBinDir();
 
 char fileName[100];
 char dirName[100];
 char dirPath[100];
 char filePath[100];
 char Makefile[] = "Makefile";
+char BinDir[] = "bin";
 char MakefilePath[100];
+char BinDirPath[100];
 
 int main(){
 	getDirName();
@@ -21,6 +24,7 @@ int main(){
 	getFileName();
 	createFile();
 	createMakefile();
+	createBinDir();
 	return 0;
 }
 
@@ -44,7 +48,7 @@ void createDir(){
 	int status = mkdir(dirName, 0777);
 	//if - mkdir was successful print message
 	if(status == 0){
-		printf("Success - Created Directory: %s\n", dirName);
+		printf("Created Directory: %s/\n", dirName);
 		strcat(dirPath, "/");	// adding '/' for nesting file in created directory
 	}
 	//else - print error message
@@ -64,7 +68,7 @@ void createFile(){
 		printf("Error: Could not create %s\n", fileName);
 	}
 	else{
-		printf("Created file: %s\n", fileName);
+		printf("Created File: %s\n", filePath);
 	}
 }
 
@@ -78,6 +82,20 @@ void createMakefile(){
 		printf("Error: Cannot create Makefile\n");
 	}
 	else{
-		printf("Makefile Created\n");
+		printf("Created File: %s\n", MakefilePath);
+	}
+}
+
+void createBinDir(){
+	strcpy(BinDirPath, dirPath);
+	strcat(BinDirPath, BinDir);
+	int status = mkdir(BinDirPath, 0777);
+	if(status == 0){
+		printf("Created Directory: %s\n", BinDirPath);
+		strcat(dirPath, "/");	// adding '/' for nesting file in created directory
+	}
+	//else - print error message
+	else{
+		printf("Error - Failed to create directory: %s\n", BinDirPath);
 	}
 }
